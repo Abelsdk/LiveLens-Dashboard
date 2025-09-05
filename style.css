@@ -1,0 +1,138 @@
+/*
+  style.css — Live Data Dashboard
+  -------------------------------------------------
+  This stylesheet handles the overall layout, card styles, controls, typography,
+  and loading skeletons for the dashboard. It’s purposefully modern but minimal.
+
+  SECTIONS
+  1) Theme variables
+  2) Resets & base typography
+  3) Layout (wrapper, header, grid)
+  4) Controls (inputs, selects, buttons)
+  5) Cards & content blocks
+  6) Utility classes (muted, mini, pill, etc.)
+  7) Loading skeletons (shimmer effect)
+  8) Responsive tweaks
+*/
+
+/* 1) THEME VARIABLES ------------------------------------------------------- */
+:root{
+  --bg:#0f172a;           /* Slate 900 background */
+  --panel:#111827;        /* Panel base */
+  --muted:#9ca3af;        /* Muted text */
+  --text:#e5e7eb;         /* Main text */
+  --accent:#22d3ee;       /* Buttons / accents */
+  --ok:#34d399;           /* Positive state */
+  --bad:#f87171;          /* Negative state */
+  --warning:#f59e0b;      /* Warning state */
+  --card:#0a1024;         /* Card base */
+  --cardBorder:#1f2937;   /* Card border */
+}
+
+/* 2) BASE TYPOGRAPHY & RESET ---------------------------------------------- */
+*{ box-sizing:border-box; }
+html, body{ height:100%; }
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--text);
+  background:
+    radial-gradient(1000px 600px at 10% -10%, #132044 0%, var(--bg) 40%),
+    radial-gradient(800px 500px at 110% 10%, #0b2330 0%, var(--bg) 45%);
+}
+
+h1, h2, h3, p{ margin:0; }
+
+/* Wrapper keeps content nicely centered on large screens */
+.wrap{ max-width:1100px; margin:0 auto; padding:28px; }
+
+/* 3) LAYOUT: HEADER & GRID ------------------------------------------------- */
+header{ display:flex; gap:16px; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.brand{ display:flex; align-items:center; gap:12px; }
+.logo{ width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg,#22d3ee,#3b82f6); box-shadow:0 8px 24px rgba(34,211,238,.35); }
+h1{ font-size:20px; }
+.sub{ color:var(--muted); font-size:13px; }
+
+/* Grid uses 12 columns on desktop, collapses on smaller screens */
+.grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
+
+/* 4) CONTROLS -------------------------------------------------------------- */
+.controls{ display:flex; gap:10px; flex-wrap:wrap; }
+.input, .select{
+  background:var(--panel);
+  border:1px solid var(--cardBorder);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:10px;
+  outline:none;
+  min-width:190px;
+}
+.btn{
+  background:var(--accent);
+  color:#001018;
+  border:none;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform .06s ease, opacity .2s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+/* 5) CARDS ----------------------------------------------------------------- */
+.card{
+  grid-column: span 4;                        /* 3 cards per row by default */
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  border:1px solid var(--cardBorder);
+  border-radius:16px;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+}
+.card.wide{ grid-column: span 8; }             /* Weather card spans 2/3 width */
+
+.card h2{
+  font-size:14px;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+.value{ font-size:32px; font-weight:700; }
+.row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+
+/* Repo list presentation */
+.list{ display:grid; gap:8px; margin-top:12px; }
+.list .item{
+  display:flex; align-items:center; justify-content:space-between;
+  border:1px solid var(--cardBorder);
+  padding:10px; border-radius:12px; background:var(--card);
+}
+.item .left{ display:flex; flex-direction:column; }
+.item .left strong{ font-size:14px; }
+
+/* 6) UTILITY CLASSES ------------------------------------------------------- */
+.muted{ color:var(--muted); }
+.small{ font-size:12px; }
+.mini{ font-size:12px; color:var(--muted); }
+.kbd{ padding:2px 6px; border:1px solid var(--cardBorder); border-bottom-width:2px; border-radius:6px; background:var(--card); color:#b9c1d6; }
+.pill{ display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid var(--cardBorder); }
+.error{ color:var(--bad); }
+.success{ color:var(--ok); }
+.warn{ color:var(--warning); }
+
+/* 7) LOADING SKELETONS ----------------------------------------------------- */
+.skeleton{ position:relative; overflow:hidden; background:#111827; border-radius:8px; }
+.skeleton::after{
+  content:""; position:absolute; inset:0; transform:translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer{ 100%{ transform:translateX(100%); } }
+
+/* 8) RESPONSIVE TWEAKS ----------------------------------------------------- */
+@media (max-width:960px){ .grid{ grid-template-columns: repeat(6, 1fr); } } /* 2 columns */
+@media (max-width:640px){ .grid{ grid-template-columns: 1fr; } .card, .card.wide{ grid-column: span 1; } } /* 1 column */
