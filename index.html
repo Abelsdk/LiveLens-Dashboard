@@ -1,4 +1,62 @@
-[DOCTYPE! html]
-<html>
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Data Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Live Data Dashboard</h1>
+          <div class="sub">API‑powered mini app • HTML + CSS + Vanilla JS</div>
+        </div>
+      </div>
+      <div class="controls" role="form" aria-label="Dashboard controls">
+        <input id="ghUser" class="input" placeholder="GitHub user (e.g. torvalds)" value="octocat" />
+        <select id="coin" class="select" title="Choose coin">
+          <option value="bitcoin">Bitcoin (BTC)</option>
+          <option value="ethereum">Ethereum (ETH)</option>
+          <option value="solana">Solana (SOL)</option>
+        </select>
+        <button id="useGeo" class="btn" title="Use your location for weather">Use my location</button>
+        <button id="refresh" class="btn">Refresh</button>
+      </div>
+    </header>
+
+    <main class="grid" id="grid">
+      <section class="card wide" id="weatherCard" aria-live="polite">
+        <h2>Weather</h2>
+        <div id="weatherContent">
+          <div class="skeleton" style="height:72px"></div>
+        </div>
+        <div class="mini" id="weatherMeta"></div>
+      </section>
+
+      <section class="card" id="cryptoCard" aria-live="polite">
+        <h2>Crypto Price</h2>
+        <div id="cryptoContent">
+          <div class="skeleton" style="height:72px"></div>
+        </div>
+        <div class="mini" id="cryptoMeta"></div>
+      </section>
+
+      <section class="card" id="ghCard" aria-live="polite">
+        <h2>GitHub Repos</h2>
+        <div id="ghContent">
+          <div class="skeleton" style="height:96px"></div>
+        </div>
+        <div class="mini" id="ghMeta"></div>
+      </section>
+    </main>
+
+    <div class="footer">Free APIs, no keys: Weather from <span class="kbd">open-meteo.com</span>, Crypto from <span class="kbd">api.coingecko.com</span>, GitHub from <span class="kbd">api.github.com</span>.</div>
+  </div>
+
+<script src="app.js"></script>
+</body>
 </html>
